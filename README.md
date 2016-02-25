@@ -14,3 +14,10 @@ Prerequisites:
 
 - [Oracle WAM 1.9.x system p](http://www.oracle.com/us/products/applications/utilities/business-solutions/work-asset-management/overview/index.html)
 - [Node-oracledb](https://github.com/oracle/node-oracledb)
+
+
+
+## License
+
+OWAM-Asset-Navigator-Server is developed by John Little and contributors. It is
+released under the [MIT License]().

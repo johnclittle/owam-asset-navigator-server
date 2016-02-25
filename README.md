@@ -30,12 +30,10 @@ Prerequisites:
 This endpoint returns all top level assets. Top level assets are assets without a parent.
 
 Paging options:
-Offset - sets the number of records to offset
-example:
-/assets?offset=1 
-Maxnumrows - sets the number of records to offset
-example:
-/assets?maxnumrows=1 
+- Offset - sets the number of records to offset
+  - example: /assets?offset=1 
+- Maxnumrows - sets the number of records to offset
+  -example: /assets?maxnumrows=1 
 
 ### /assets/:asset_id
 
@@ -46,12 +44,10 @@ This endpoint returns the information about the particular asset as identified b
 This endpoint returns all the child assets about the particular asset as identified by the assset id.
 
 Paging options:
-Offset - sets the number of records to offset
-example:
-/assets?offset=1 
-Maxnumrows - sets the number of records to offset
-example:
-/assets?maxnumrows=1 
+- Offset - sets the number of records to offset
+  - example: /assets?offset=1 
+- Maxnumrows - sets the number of records to offset
+  -example: /assets?maxnumrows=1 
 
 ### /assets/:asset_id/cost
 

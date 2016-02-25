@@ -1,7 +1,7 @@
 {
-  "name": "oracle-wam-server",
+  "name": "owam-asset-navigator-server",
   "version": "1.0.0",
-  "description": "Node.js Web Server for Oracle Work and Asset Management (WAM)",
+  "description": "OWAM-Asset-Navigator-Server uses node-oracledb to create web server that produces output (json) capable of supporting a front end client that is similar to the asset navigator user interface found in the Oracle WAM 1.9.x system.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

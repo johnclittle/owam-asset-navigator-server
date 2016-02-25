@@ -1,0 +1,15 @@
+{
+  "name": "oracle-wam-server",
+  "version": "1.0.0",
+  "description": "Node.js Web Server for Oracle Work and Asset Management (WAM)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "oracledb": "^1.6.0"
+  }
+}

@@ -22,6 +22,11 @@ oracledb.createPool (dbPoolSettings, function (err, pool) {
 	if (err) { console.error("createPool() callback: " + err.message);return; }
 
  	app.listen(portid, function () { console.log('App listening on port: ' + portid); });
+ 	
+ 	app.get('/', function (req, response) {
+ 		response.redirect('/assets');
+	});
+
 
  	// INDEX ROUTE
 	app.get('/assets', function (req, response) {

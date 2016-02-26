@@ -22,6 +22,13 @@ oracledb.createPool (dbPoolSettings, function (err, pool) {
 	if (err) { console.error("createPool() callback: " + err.message);return; }
 
  	app.listen(portid, function () { console.log('App listening on port: ' + portid); });
+
+	app.use(function(req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		next();
+	});
+
  	
  	app.get('/', function (req, response) {
  		response.redirect('/assets');
@@ -31,7 +38,7 @@ oracledb.createPool (dbPoolSettings, function (err, pool) {
  	// INDEX ROUTE
 	app.get('/assets', function (req, response) {
 		sql = assets_sql + "WHERE PARENT_ASSET_ID IS NULL";
-		var mnr = req.query.maxnumrows || 25;
+		var mnr = req.query.maxnumrows || 1000;
 		var ot = req.query.offset || 0;
 		doQuery(pool, sql, {maxnumrows: mnr, offset: ot}, function(records){
 			response.json(records);
@@ -43,7 +50,7 @@ oracledb.createPool (dbPoolSettings, function (err, pool) {
 	app.get('/assets/:asset_id', function (req, response) {
 		sql = assets_sql + "WHERE ASSET_ID = :id"
 		var records = doQuery(pool, sql, {id: req.params.asset_id}, function(records){
-			response.json(records);
+			records.length ? response.json(records[0]) : response.json({})
 		});
 	});
 
@@ -83,7 +90,7 @@ function doQuery(pool, sql, params, callback){
 				+ "WHERE ROWNUM <= :maxnumrows + :offset) WHERE ROW_NUM > :offset ";
 			}
 		}
-		console.log(sql);
+		// console.log(sql);
 		connection.execute(sql, params, {maxRows: 1000}, function(err, result){
 			if (err) {
 				handleError( "execute() callback", err);

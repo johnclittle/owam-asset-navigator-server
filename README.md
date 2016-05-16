@@ -52,6 +52,18 @@ Paging options:
 - Maxnumrows - sets the number of records to offset
   -example: /assets?maxnumrows=1 
 
+
+
+### /assets/:asset_id/parents
+
+This endpoint returns all the parent assets of the asset as identified by the assset id.
+
+Paging options:
+- Offset - sets the number of records to offset
+  - example: /assets?offset=1 
+- Maxnumrows - sets the number of records to offset
+  -example: /assets?maxnumrows=1 
+
 ### /assets/:asset_id/cost
 
 This endpoint returns the cost by period information about the particular asset as identified by the assset id.

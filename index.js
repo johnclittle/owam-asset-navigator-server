@@ -12,10 +12,11 @@ var dbPoolSettings = {
 	poolIncrement	: 1, // only grow the pool by one connection at a time
 	poolTimeout		: 0  // never terminate idle connections
 }
+
 var assets_sql = "SELECT assets.*, "
 	assets_sql += "(SELECT COUNT(PARENT_ASSET_ID) AS total_columns FROM SYNERGEN.SA_ASSET childassets WHERE childassets.PARENT_ASSET_ID = assets.ASSET_ID) CHILD_COUNT, "
-	assets_sql += "(SELECT COUNT(ASSET_ID) AS total_columns FROM SYNERGEN.SA_WORK_REQUEST workrequesthistory WHERE workrequesthistory.ASSET_ID = assets.ASSET_ID ) OPEN_WR_COUNT, "
-	assets_sql += "(SELECT COUNT(ASSET_ID) AS total_columns FROM SYNERGEN.SA_WORK_ORDER workhistory WHERE workhistory.ASSET_ID = assets.ASSET_ID ) OPEN_WO_COUNT "
+	assets_sql += "(SELECT COUNT(work_request_no) from SYNERGEN.SA_WORK_REQUEST wr where wr.asset_id = assets.asset_id and wr.asset_record_type = assets.asset_record_type and wr.work_request_status  not in ('WORK ORDER', 'REJECTED')) OPEN_WR_COUNT, "
+	assets_sql += "(SELECT COUNT(work_order_no) from SYNERGEN.SA_WORK_ORDER wo where wo.asset_id = assets.asset_id and wo.asset_record_type = assets.asset_record_type and wo.work_status  not in ('FINISHED', 'CLOSED', 'REJECTED', 'CANCELED') ) OPEN_WO_COUNT "
 	assets_sql += "FROM SYNERGEN.SA_ASSET assets "
 
 oracledb.createPool (dbPoolSettings, function (err, pool) {
@@ -54,9 +55,19 @@ oracledb.createPool (dbPoolSettings, function (err, pool) {
 		});
 	});
 
-	// SHOW ASSET ROUTE
+	// INDEX ASSET/CHILD ROUTE
 	app.get('/assets/:asset_id/children', function (req, response) {
 		sql = assets_sql + "WHERE PARENT_ASSET_ID = :id"
+		var mnr = req.query.maxnumrows || 25;
+		var ot = req.query.offset || 0;
+		var records = doQuery(pool, sql, {id: req.params.asset_id, maxnumrows: mnr, offset: ot}, function(records){
+			response.json(records);
+		});
+	});
+
+	// INDEX ASSET/PARENTS ROUTE
+	app.get('/assets/:asset_id/parents', function (req, response) {
+		sql = "SELECT ASSET_RECORD_TYPE, ASSET_ID from SYNERGEN.SA_ASSET start with ASSET_ID = :id connect by ASSET_ID = prior PARENT_ASSET_ID"
 		var mnr = req.query.maxnumrows || 25;
 		var ot = req.query.offset || 0;
 		var records = doQuery(pool, sql, {id: req.params.asset_id, maxnumrows: mnr, offset: ot}, function(records){

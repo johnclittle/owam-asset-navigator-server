@@ -12,6 +12,7 @@ var dbPoolSettings = {
 	poolIncrement	: 1, // only grow the pool by one connection at a time
 	poolTimeout		: 0  // never terminate idle connections
 }
+
 var assets_sql = "SELECT assets.*, "
 	assets_sql += "(SELECT COUNT(PARENT_ASSET_ID) AS total_columns FROM SYNERGEN.SA_ASSET childassets WHERE childassets.PARENT_ASSET_ID = assets.ASSET_ID) CHILD_COUNT, "
 	assets_sql += "(SELECT COUNT(ASSET_ID) AS total_columns FROM SYNERGEN.SA_WORK_REQUEST workrequesthistory WHERE workrequesthistory.ASSET_ID = assets.ASSET_ID ) OPEN_WR_COUNT, "

@@ -4,7 +4,7 @@
 
 An example using [the node-oracledb](https://github.com/oracle/node-oracledb) to create web server that produces json endpoints capable of supporting a front end client that is similar to the asset navigator user interface found in the  [ Oracle WAM 1.9.x system](http://www.oracle.com/us/products/applications/utilities/business-solutions/work-asset-management/overview/index.html).
 
-This example was presented at the [FULLCIRCLE 2016 WAM USERS GROUP](http://ouug.org/wam/).
+This example was presented at the [MAY 2016 ORACLE Work and Asset Management (WAM) Users Group Conference Call](http://ouug.org/wam/).
 
 ## <a name="installation"></a> Installation
 

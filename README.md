@@ -6,6 +6,9 @@ An example using [the node-oracledb](https://github.com/oracle/node-oracledb) to
 
 This example was presented at the [MAY 2016 ORACLE Work and Asset Management (WAM) Users Group Conference Call](http://ouug.org/wam/).
 
+Here is an example of a [front end client using ember.js](https://github.com/johnclittle/owam-asset-navigator-web-client)
+
+
 ## <a name="installation"></a> Installation
 
 Prerequisites:
